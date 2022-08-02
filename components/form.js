@@ -59,6 +59,7 @@ export default function Form() {
         </label>
         <input id="csv-input-file" type="file" onChange={handleOnChange}/>
         <br/><br/>
+        After selecting a file, the first 5 converted rows will be displayed.<br/><br/>
         { selectedFile ? (
             <div>
               <table>
@@ -72,7 +73,7 @@ export default function Form() {
                 </thead>
                 <tbody>
                   {
-                    inputValues.map(
+                    inputValues.slice(0,5).map(
                       (valueRow, idx) => {
                         return (
                           <tr key={idx}>
