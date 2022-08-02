@@ -1,11 +1,16 @@
 import {useState} from 'react';
 import Papa from 'papaparse'; // Alternate: csv-parse
 import { mapToTarget, targetFields } from '../modules/mappings.js';
+import { downloadFile } from '../modules/download.js';
 
 export default function Form() {
   const [selectedFile, setSelectedFile] = useState();
+  // TODO: Rename these input state variables to reflect they're now used to
+  // store converted data.
   const [inputHeaders, setInputHeaders] = useState([]);
   const [inputValues, setInputValues] = useState([]);
+  // Header and converted rows.
+  const [convertedData, setConvertedData] = useState([]);
 
   const handleOnChange = async (event) => {
     setSelectedFile(event.target.files[0]);
@@ -18,10 +23,13 @@ export default function Form() {
         //console.log(`Delimiter: ${results.meta.delimiter}`);
         setInputHeaders(targetFields());
         setInputValues(mapToTarget(results.data));
+        // Build the structure so Papa.unparse can consume it.
+        setConvertedData({fields: targetFields(), data: mapToTarget(results.data)});
       }
     });
   };
 
+  // TODO: Cull all this code. It is replaced with a download function.
   const convertCsv = async (event) => {
     //event.preventDefault();
     const outputSection = document.getElementById("output-section");
@@ -39,6 +47,11 @@ export default function Form() {
     newTable += "</tbody></table>";
     console.log(newTable);
     outputSection.insertAdjacentHTML('afterbegin', newTable);
+  };
+
+  const downloadCsv = async (event) => {
+    // TODO: Are we doing anything with 'event' here?
+    downloadFile(Papa.unparse(convertedData), 'download.csv', 'text/csv;charset=utf-8;');
   };
 
   const handleSubmit = async (event) => {
@@ -91,7 +104,7 @@ export default function Form() {
           )
         }
         <br/><br/>
-        <button type="button" onClick={convertCsv}>Convert CSV</button>
+        <button type="button" onClick={downloadCsv}>Download CSV</button>
       </form>
 
       <style jsx>{`
