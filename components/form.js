@@ -67,9 +67,12 @@ export default function Form() {
   return (
     <div className="input">
       <form onSubmit={handleSubmit}>
+        <br/>
         <label htmlFor="csv-input-file">
-          Upload a CSV file to be converted:&nbsp;
+          Select a Workday CSV file to be converted:
         </label>
+        <br/>
+        <br/>
         <input id="csv-input-file" type="file" onChange={handleOnChange}/>
         <br/><br/>
         After selecting a file, the first 5 converted rows will be displayed.<br/><br/>
@@ -104,7 +107,12 @@ export default function Form() {
           )
         }
         <br/><br/>
+        { selectedFile ? (
         <button type="button" onClick={downloadCsv}>Download CSV</button>
+          ) : (
+            <></>
+          )
+        }
       </form>
 
       <style jsx>{`
