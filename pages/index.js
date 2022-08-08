@@ -36,6 +36,7 @@ export default function Home() {
       </main>
 
       <footer>
+        <a href="/api/auth/logout">Logout</a>
       </footer>
 
       <style jsx>{`
