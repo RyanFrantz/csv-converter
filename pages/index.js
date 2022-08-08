@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useUser } from '@auth0/nextjs-auth0';
 import Form from '../components/form.js';
 
 function buttonClicked() {
@@ -9,6 +10,10 @@ function buttonClicked() {
 }
 
 export default function Home() {
+  const { user, error, isLoading } = useUser();
+  if (user) {
+    console.log(JSON.stringify(user));
+  }
   return (
     <div className="container">
       <Head>
@@ -20,7 +25,11 @@ export default function Home() {
         <h1 className="title">
           Employee Navigator Import
         </h1>
+        { user ? (
         <Form />
+        ) : (
+          <a href="/api/auth/login">Please Login</a>
+        )}
 
         <div className="output" id="output-section">
         </div>
