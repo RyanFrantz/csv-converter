@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useUser } from '@auth0/nextjs-auth0';
 import Form from '../components/form.js';
+import Header from '../components/header.js';
 
 function buttonClicked() {
   //alert("Button clicked");
@@ -11,9 +12,6 @@ function buttonClicked() {
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
-  if (user) {
-    console.log(JSON.stringify(user));
-  }
   return (
     <div className="container">
       <Head>
@@ -21,6 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Header/>
       <main>
         <h1 className="title">
           Employee Navigator Import
@@ -36,7 +35,6 @@ export default function Home() {
       </main>
 
       <footer>
-        <a href="/api/auth/logout">Logout</a>
       </footer>
 
       <style jsx>{`
