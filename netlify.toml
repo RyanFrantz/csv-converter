@@ -1,6 +1,6 @@
+# Use the Netlify deploy URL.
+# This should work for production and deploy previews.
+# We can't define this in the Netlify UI because '$DEPLOY_URL' is treated
+# as a literal string and not interpolated.
 [base]
-  # Use the Netlify deploy URL.
-  # This should work for production and deploy previews.
-  # We can't define this in the Netlify UI because '$DEPLOY_URL' is treated
-  # as a literal string and not interpolated.
   AUTH0_BASE_URL = $DEPLOY_URL
