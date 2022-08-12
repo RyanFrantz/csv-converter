@@ -10,7 +10,10 @@ export default function Header() {
     <header>
       <ul>
         { user ? (
-          <li><a href="/api/auth/logout">Logout</a></li>
+          <>
+            <li>{user.name} ({user.email})</li>
+            <li><a href="/api/auth/logout">Logout</a></li>
+          </>
         ) : (
           <li><a href="/api/auth/login">Login</a></li>
         )}
@@ -31,6 +34,7 @@ export default function Header() {
         header li {
           display: inline; // Display horizontally; remove bullets.
           margin: 20px;
+          color: white;
         }
 
         header li a {
