@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useUser } from '@auth0/nextjs-auth0';
 import Form from '../components/form.js';
 import Header from '../components/header.js';
+import Script from 'next/script';
 
 function buttonClicked() {
   //alert("Button clicked");
@@ -14,6 +15,20 @@ export default function Home() {
   const { user, error, isLoading } = useUser();
   return (
     <div className="container">
+    {/*! Global site tag (gtag.js) - Google Analytics */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-TN5NXBSQY5"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-TN5NXBSQY5');
+        `}
+      </Script>
       <Head>
         <title>Convert Workday to Employee Navigator</title>
         <link rel="icon" href="/favicon.ico" />
